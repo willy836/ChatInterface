@@ -28,21 +28,27 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div style="min-height: 60vh;" class="relative">
                         <div>
-                           
-                            @if (count($chatHistory) > 0 && $latestChat->user && $latestChat->typing)
+                            @if (count($chatHistory) > 0 && $latestChat->user == 1 && $latestChat->typing == 1)
                               <p class="italic">Typing...</p>  
                             @endif
                             <div id="result" class="flex-grow">{{ $result ?? '' }}</div>
                             
                         </div>  
-                        <div class="absolute bottom-0 w-full">
-                            <form action="{{ route("chatGenerator") }}" method="POST" class="flex gap-1">
+                        <div class="absolute bottom-0 w-full flex">
+                            <form  action="{{ route("chatGenerator") }}" method="POST" class="w-5/6 flex gap-1">
                                 @csrf
-                                <div class="mb-3 w-5/6">
-                                    <input class="text-black w-full" type="text" name="chat">
+                                <div class="mb-3 w-3/4">
+                                    <input class="text-black w-full py-2.5 px-2" type="text" name="chat">
                                 </div>
+                                <select name="personality" id="" class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 h-11">
+                                    @foreach ($personalities as $personality)
+                                        <option value="{{ $personality->name }}" {{ old('personality', session('selected_personality')) === $personality->name ? 'selected' : '' }}>
+                                            {{ $personality->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 <div>
-                                    <button width="100" class="bg-indigo-800 rounded py-2 px-4" type="submit">Send</button>
+                                    <button width="100" class="bg-indigo-800 rounded py-2.5 px-5" type="submit">Send</button>
                                 </div>
                             </form>
                         </div>
