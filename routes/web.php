@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::post('/dashboard', [DashboardController::class, 'chatGenerator'])->middleware(['auth', 'verified'])->name('chatGenerator');
+Route::get('/search-history', [DashboardController::class, 'searchHistory'])->middleware(['auth', 'verified'])->name('searchHistory');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

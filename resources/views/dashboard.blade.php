@@ -9,20 +9,25 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex gap-2">
             <div style="max-height: 68vh; overflow-y: auto;" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg w-1/6">
                 <div class="p-6 text-gray-900 dark:text-gray-100">Chat History</div>
+                <form action="{{ route('searchHistory') }}" method="GET">
+                    <input type="text" name="search" placeholder="Search...">
+                </form>
                 <ul class="list-none">
-                    @foreach ($chatHistory as $chat)
-                        @if ($chat['user'])   
-                        <li class="bg-gray-700 text-gray-900 dark:text-gray-100 p-2 mb-1">{{ $chat['message'] }}</li>
-                        @endif
-                    @endforeach
+                    @if (count($chatHistory ?? []) > 0)   
+                        @foreach ($chatHistory as $chat)
+                            @if ($chat->user)   
+                            <li class="bg-gray-700 text-gray-900 dark:text-gray-100 p-2 mb-1 history" data-full-history="{{ $chat->message }}">{{ Str::limit($chat->message, 20) }}</li>
+                            @endif
+                        @endforeach
+                    @else
+                        <li class="bg-gray-700 text-gray-900 dark:text-gray-100 p-2">No history</li>
+                    @endif
                 </ul>
             </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg w-5/6">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div style="min-height: 60vh;" class="relative">
-                        @if (isset($result))
-                        <div class="flex-grow">{{ $result }}</div>   
-                        @endif
+                    <div style="min-height: 60vh;" class="relative">  
+                        <div id="result" class="flex-grow">{{ $result ?? '' }}</div>
                         <div class="absolute bottom-0 w-full">
                             <form action="{{ route("chatGenerator") }}" method="POST" class="flex gap-1">
                                 @csrf
@@ -39,4 +44,16 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', ()=> {
+            const histories = document.querySelectorAll('.history');
+            histories.forEach((history)=> {
+                history.addEventListener('click', ()=> {
+                    const fullHistory = history.getAttribute('data-full-history');
+                    const result = document.getElementById('result')
+                    result.innerText = fullHistory
+                })
+            })
+        })
+    </script>
 </x-app-layout>

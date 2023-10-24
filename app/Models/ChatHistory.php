@@ -10,4 +10,10 @@ class ChatHistory extends Model
     use HasFactory;
 
     protected $fillable = ['user', 'message'];
+    
+    public function scopeFilter($query){
+        if(request('search')){
+            $query->where('message', 'LIKE', '%' . request('search') . '%');
+        }
+    }
 }
