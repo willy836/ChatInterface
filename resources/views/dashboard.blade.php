@@ -26,8 +26,15 @@
             </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg w-5/6">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div style="min-height: 60vh;" class="relative">  
-                        <div id="result" class="flex-grow">{{ $result ?? '' }}</div>
+                    <div style="min-height: 60vh;" class="relative">
+                        <div>
+                           
+                            @if (count($chatHistory) > 0 && $latestChat->user && $latestChat->typing)
+                              <p class="italic">Typing...</p>  
+                            @endif
+                            <div id="result" class="flex-grow">{{ $result ?? '' }}</div>
+                            
+                        </div>  
                         <div class="absolute bottom-0 w-full">
                             <form action="{{ route("chatGenerator") }}" method="POST" class="flex gap-1">
                                 @csrf

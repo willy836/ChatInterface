@@ -9,7 +9,7 @@ class ChatHistory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user', 'message'];
+    protected $fillable = ['user', 'message', 'typing'];
     
     public function scopeFilter($query){
         if(request('search')){
