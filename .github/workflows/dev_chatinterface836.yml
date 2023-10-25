@@ -62,5 +62,5 @@ jobs:
         with:
           app-name: 'chatinterface836'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C27DAE1BFD514846BB53197CE8C07DA7 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7040FAED62D941B0B59B41CD0D27A06F }}
           package: .
