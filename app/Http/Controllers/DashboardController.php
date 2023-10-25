@@ -52,14 +52,13 @@ class DashboardController extends Controller
         ]);
 
         $chatHistory = ChatHistory::latest()->filter(request('search'))->get();
-        $latestChat = $chatHistory->first();
-        $personalities = Personality::all();
+        $latestChat = ChatHistory::latest()->filter(request('search'))->first();
+        
 
         return view('dashboard', [ 
             'result' => $result['choices'][0]['text'], 
             'chatHistory' => $chatHistory, 
-            'latestChat' => $latestChat,
-            'personalities' => $personalities 
+            'latestChat' => $latestChat 
         ]);
     }
 

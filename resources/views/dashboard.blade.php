@@ -28,9 +28,9 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div style="min-height: 60vh;" class="relative">
                         <div>
-                            @if (count($chatHistory) > 0 && $latestChat->user == 1 && $latestChat->typing == 1)
+                            {{-- @if (count($chatHistory) > 0 && $latestChat->user == 1 && $latestChat->typing == 1)
                               <p class="italic">Typing...</p>  
-                            @endif
+                            @endif --}}
                             <div id="result" class="flex-grow">{{ $result ?? '' }}</div>
                             
                         </div>  
@@ -41,11 +41,9 @@
                                     <input class="text-black w-full py-2.5 px-2" type="text" name="chat">
                                 </div>
                                 <select name="personality" id="" class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 h-11">
-                                    @foreach ($personalities as $personality)
-                                        <option value="{{ $personality->name }}" {{ old('personality', session('selected_personality')) === $personality->name ? 'selected' : '' }}>
-                                            {{ $personality->name }}
-                                        </option>
-                                    @endforeach
+                                    <option value="Formal" {{ old('personality') === 'Formal' ? 'selected' : '' }}>Formal</option>
+                                    <option value="Friendly" {{ old('personality') === 'Friendly' ? 'selected' : '' }}>Friendly</option>
+                                    <option value="Humorous" {{ old('personality') === 'Humorous' ? 'selected' : '' }}>Humorous</option>
                                 </select>
                                 <div>
                                     <button width="100" class="bg-indigo-800 rounded py-2.5 px-5" type="submit">Send</button>
