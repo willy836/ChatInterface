@@ -62,5 +62,5 @@ jobs:
         with:
           app-name: 'openai836'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_64EA4DDA57E1430DBFF8310D95483073 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1F3E737E59864E4C931BFC44E709A73F }}
           package: .
