@@ -10,9 +10,9 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -31,6 +31,7 @@
             <main>
                 {{ $slot }}
             </main>
+            <script src="{{ mix('js/app.js') }}"></script>
         </div>
     </body>
 </html>
