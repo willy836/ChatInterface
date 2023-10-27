@@ -9,7 +9,7 @@
         </p>
     </header>
 
-    <form id="send-verification" method="post" action="https://openai836.azurewebsites.net/verification/send">
+    <form id="send-verification" method="post" action="https://openai836.azurewebsites.net/profile">
         @csrf
     </form>
 
