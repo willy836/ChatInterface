@@ -90,6 +90,10 @@ To run the project, execute the following command:
 -   php artisan serve
 -   On your browser, type http://127.0.0.1:8000 to see the app
 
+To run the deployed version of the project, visit the following link:
+
+-   [ChatInterface](https://openai836.azurewebsites.net/)
+
 ### Run tests
 
 To run tests, run the following command:
