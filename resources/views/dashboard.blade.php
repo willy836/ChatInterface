@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex gap-2">
             <div style="max-height: 68vh; overflow-y: auto;" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg w-1/6">
                 <div class="p-6 text-gray-900 dark:text-gray-100">Chat History</div>
-                <form action="{{ secure_url(route('searchHistory')) }}" method="GET">
+                <form action="https://openai836.azurewebsites.net/search-history" method="GET">
                     <input type="text" name="search" placeholder="Search...">
                 </form>
                 <ul class="list-none">
@@ -35,7 +35,7 @@
                             
                         </div>  
                         <div class="absolute bottom-0 w-full flex">
-                            <form  action="{{ secure_url(route('chatGenerator')) }}" method="POST" class="w-5/6 flex gap-1">
+                            <form  action="https://openai836.azurewebsites.net/dashboard" method="POST" class="w-5/6 flex gap-1">
                                 @csrf
                                 <div class="mb-3 w-3/4">
                                     <input class="text-black w-full py-2.5 px-2" type="text" name="chat">
