@@ -7,11 +7,12 @@ use App\Models\ChatHistory;
 use App\Models\Personality;
 use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index(){
-        $chatHistory = ChatHistory::latest()->filter(request('search'))->get();
+        $chatHistory = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->get();
         return view('dashboard', ['chatHistory' => $chatHistory]);
     }
 
@@ -20,6 +21,7 @@ class DashboardController extends Controller
 
         // Save user input to db
         ChatHistory::create([
+            'user_id'=> Auth::user()->id,
             'user' => true,
             'message' => $validatedUserInput['chat'],
             'typing' => true
@@ -46,13 +48,14 @@ class DashboardController extends Controller
 
         // Save AI response to db
         ChatHistory::create([
+            'user_id'=> Auth::user()->id,
             'user' => false,
             'message' => $result['choices'][0]['text'],
             'typing' => false
         ]);
 
-        $chatHistory = ChatHistory::latest()->filter(request('search'))->get();
-        $latestChat = ChatHistory::latest()->filter(request('search'))->first();
+        $chatHistory = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->get();
+        $latestChat = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->first();
         
 
         return view('dashboard', [ 
@@ -63,7 +66,7 @@ class DashboardController extends Controller
     }
 
     public function searchHistory(){
-        $chatHistory = ChatHistory::latest()->filter(request('search'))->get();
+        $chatHistory = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->get();
         return view('dashboard', ['chatHistory' => $chatHistory]);
     }
 
