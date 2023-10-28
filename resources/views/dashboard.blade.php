@@ -26,11 +26,13 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div style="min-height: 60vh;" class="relative">
                         <div>
-                            {{-- @if (count($chatHistory) > 0 && $latestChat->user == 1 && $latestChat->typing == 1)
-                              <p class="italic">Typing...</p>  
-                            @endif --}}
-                            <div id="result" class="flex-grow">{{ $result ?? '' }}</div>
-                            
+                            <div id="result" class="flex-grow">
+                                @if ($latestChat && $latestChat->typing)
+                                    Typing...
+                                @else
+                                    {{ $result ?? '' }}
+                                @endif
+                            </div>
                         </div>  
                         <div class="absolute bottom-0 w-full flex">
                             <form  action="{{ route('chatGenerator') }}" method="POST" class="w-5/6 flex gap-1">
@@ -39,9 +41,9 @@
                                     <input class="text-black w-full py-2.5 px-2" type="text" name="chat">
                                 </div>
                                 <select name="personality" id="" class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 h-11">
-                                    <option value="Formal" {{ old('personality') === 'Formal' ? 'selected' : '' }}>Formal</option>
-                                    <option value="Friendly" {{ old('personality') === 'Friendly' ? 'selected' : '' }}>Friendly</option>
-                                    <option value="Humorous" {{ old('personality') === 'Humorous' ? 'selected' : '' }}>Humorous</option>
+                                    <option value="Formal" {{ old('personality', session('personality')) === 'Formal' ? 'selected' : '' }}>Formal</option>
+                                    <option value="Friendly" {{ old('personality', session('personality')) === 'Friendly' ? 'selected' : '' }}>Friendly</option>
+                                    <option value="Humorous" {{ old('personality', session('personality')) === 'Humorous' ? 'selected' : '' }}>Humorous</option>
                                 </select>
                                 <div>
                                     <button width="100" class="bg-indigo-800 rounded py-2.5 px-5" type="submit">Send</button>

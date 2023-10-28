@@ -13,7 +13,8 @@ class DashboardController extends Controller
 {
     public function index(){
         $chatHistory = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->get();
-        return view('dashboard', ['chatHistory' => $chatHistory]);
+        $latestChat = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->first();
+        return view('dashboard', ['chatHistory' => $chatHistory, 'latestChat' => $latestChat]);
     }
 
     public function chatGenerator(ChatGeneratorRequest $request){
@@ -28,7 +29,11 @@ class DashboardController extends Controller
         ]);
 
         $personality = $request->input('personality');
-        session(['personality' => $personality]);
+        $currentPersonality = session('personality');
+
+        if ($personality && $personality !== $currentPersonality) {
+            session(['personality' => $personality]);
+        }
         
         $prompts = [
             'formal' => "Write a formal reply about" . $validatedUserInput['chat'] . "\n",
@@ -54,7 +59,6 @@ class DashboardController extends Controller
 
         $chatHistory = ChatHistory::where('user_id', $userId)->latest()->filter(request('search'))->get();
         $latestChat = ChatHistory::where('user_id', $userId)->latest()->filter(request('search'))->first();
-        
 
         return view('dashboard', [ 
             'result' => $result['choices'][0]['text'], 
@@ -65,7 +69,8 @@ class DashboardController extends Controller
 
     public function searchHistory(){
         $chatHistory = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->get();
-        return view('dashboard', ['chatHistory' => $chatHistory]);
+        $latestChat = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->first();
+        return view('dashboard', ['chatHistory' => $chatHistory, 'latestChat' => $latestChat]);
     }
 
     public function selectPersonality(){
