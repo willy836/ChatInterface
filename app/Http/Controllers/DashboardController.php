@@ -7,26 +7,33 @@ use App\Models\ChatHistory;
 use App\Models\Personality;
 use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index(){
-        $chatHistory = ChatHistory::latest()->filter(request('search'))->get();
-        return view('dashboard', ['chatHistory' => $chatHistory]);
+        $chatHistory = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->get();
+        $latestChat = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->first();
+        return view('dashboard', ['chatHistory' => $chatHistory, 'latestChat' => $latestChat]);
     }
 
     public function chatGenerator(ChatGeneratorRequest $request){
+        $userId = Auth::user()->id;
         $validatedUserInput = $request->validated();
 
         // Save user input to db
-        ChatHistory::create([
-            'user' => true,
-            'message' => $validatedUserInput['chat'],
+        $chat = ChatHistory::create([
+            'user_id'=> $userId,
+            'user_input' => $validatedUserInput['chat'],
             'typing' => true
         ]);
 
         $personality = $request->input('personality');
-        session(['personality' => $personality]);
+        $currentPersonality = session('personality');
+
+        if ($personality && $personality !== $currentPersonality) {
+            session(['personality' => $personality]);
+        }
         
         $prompts = [
             'formal' => "Write a formal reply about" . $validatedUserInput['chat'] . "\n",
@@ -44,16 +51,14 @@ class DashboardController extends Controller
             'max_tokens' => 500,
         ]);
 
-        // Save AI response to db
-        ChatHistory::create([
-            'user' => false,
-            'message' => $result['choices'][0]['text'],
-            'typing' => false
+        // Update chat
+        $chat->update([
+            'typing' => false,
+            'ai_response' => $result['choices'][0]['text']
         ]);
 
-        $chatHistory = ChatHistory::latest()->filter(request('search'))->get();
-        $latestChat = ChatHistory::latest()->filter(request('search'))->first();
-        
+        $chatHistory = ChatHistory::where('user_id', $userId)->latest()->filter(request('search'))->get();
+        $latestChat = ChatHistory::where('user_id', $userId)->latest()->filter(request('search'))->first();
 
         return view('dashboard', [ 
             'result' => $result['choices'][0]['text'], 
@@ -63,8 +68,9 @@ class DashboardController extends Controller
     }
 
     public function searchHistory(){
-        $chatHistory = ChatHistory::latest()->filter(request('search'))->get();
-        return view('dashboard', ['chatHistory' => $chatHistory]);
+        $chatHistory = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->get();
+        $latestChat = ChatHistory::where('user_id', Auth::user()->id)->latest()->filter(request('search'))->first();
+        return view('dashboard', ['chatHistory' => $chatHistory, 'latestChat' => $latestChat]);
     }
 
     public function selectPersonality(){

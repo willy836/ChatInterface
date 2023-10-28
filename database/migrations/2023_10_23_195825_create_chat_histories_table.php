@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('chat_histories', function (Blueprint $table) {
             $table->id();
-            $table->boolean('user');
-            $table->text('message');
+            $table->unsignedBigInteger('user_id');
+            $table->text('user_input');
+            $table->text('ai_response')->nullable();
+            $table->boolean('typing')->default(false);
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
