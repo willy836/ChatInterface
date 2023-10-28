@@ -9,7 +9,7 @@ class ChatHistory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user', 'user_id', 'message', 'typing'];
+    protected $fillable = ['user_input', 'user_id', 'ai_response', 'typing'];
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -17,7 +17,7 @@ class ChatHistory extends Model
     
     public function scopeFilter($query){
         if(request('search')){
-            $query->where('message', 'LIKE', '%' . request('search') . '%');
+            $query->where('user_input', 'LIKE', '%' . request('search') . '%');
         }
     }
 }

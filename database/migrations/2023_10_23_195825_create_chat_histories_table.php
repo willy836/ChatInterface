@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('chat_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->boolean('user');
-            $table->text('message');
+            $table->text('user_input');
+            $table->text('ai_response')->nullable();
+            $table->boolean('typing')->default(false);
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });

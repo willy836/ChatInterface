@@ -14,10 +14,8 @@
                 </form>
                 <ul class="list-none">
                     @if (count($chatHistory ?? []) > 0)   
-                        @foreach ($chatHistory as $chat)
-                            @if ($chat->user)   
-                            <li class="bg-gray-700 text-gray-900 dark:text-gray-100 p-2 mb-1 history" data-full-history="{{ $chat->message }}">{{ Str::limit($chat->message, 20) }}</li>
-                            @endif
+                        @foreach ($chatHistory as $chat) 
+                            <li class="bg-gray-700 text-gray-900 dark:text-gray-100 p-2 mb-1 history" data-full-history="{{ $chat->user_input }} {{ $chat->ai_response }}">{{ Str::limit($chat->user_input, 20) }}</li>  
                         @endforeach
                     @else
                         <li class="bg-gray-700 text-gray-900 dark:text-gray-100 p-2">No history</li>
