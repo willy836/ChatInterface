@@ -92,7 +92,7 @@ To run the project, execute the following command:
 
 To run the deployed version of the project, visit the following link:
 
--   [ChatInterface](https://openai836.azurewebsites.net/)
+-   [ChatInterface](https://chatinterfacebot.azurewebsites.net/)
 
 ### Run tests
 
