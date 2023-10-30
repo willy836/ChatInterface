@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="https://openai836.azurewebsites.net/login">
+    <form method="POST" action="https://chatinterfacebot.azurewebsites.net/login">
         @csrf
 
         <!-- Email Address -->

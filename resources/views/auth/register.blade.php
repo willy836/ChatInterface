@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="https://openai836.azurewebsites.net/register">
+    <form method="POST" action="https://chatinterfacebot.azurewebsites.net/register">
         @csrf
 
         <!-- Name -->
