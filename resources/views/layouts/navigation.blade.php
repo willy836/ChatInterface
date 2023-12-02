@@ -39,7 +39,7 @@
                         </x-dropdown-link>
 
                         <!-- Authentication -->
-                        <form method="POST" action="https://chatinterfacebot.azurewebsites.net/logout">
+                        <form method="POST" action="https://chatinterface.chickenkiller.com/logout">
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
@@ -85,7 +85,7 @@
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
-                <form method="POST" action="https://chatinterfacebot.azurewebsites.net/logout">
+                <form method="POST" action="https://chatinterface.chickenkiller.com/logout">
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
