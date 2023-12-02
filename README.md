@@ -36,14 +36,14 @@
 <details>
   <summary>Server</summary>
   <ul>
-    <li><a href="https://rubyonrails.org/">Laravel's built in server</a></li>
+    <li><a href="https://laravel.com/">Laravel's built in server</a></li>
   </ul>
 </details>
 
 <details>
 <summary>Database</summary>
   <ul>
-    <li><a href="https://www.postgresql.org/">MySQL</a></li>
+    <li><a href="https://www.mysql.com/">MySQL</a></li>
   </ul>
 </details>
 
@@ -92,7 +92,7 @@ To run the project, execute the following command:
 
 To run the deployed version of the project, visit the following link:
 
--   [ChatInterface](https://openai836.azurewebsites.net/)
+-   [ChatInterface](https://chatinterface.chickenkiller.com/)
 
 ### Run tests
 
